@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
-export const DeleteCategoryController = {
+
+
+export class DeleteCategoryController {
     async handle(request: Request, response: Response) {
         const { id } = request.params;
 

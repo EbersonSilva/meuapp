@@ -11,6 +11,22 @@ import { ListProductsController } from "./controller/product/ListProductControll
 import { DeleteProductController } from "./controller/product/DeleteProductController";
 import { UpdateProductController } from "./controller/product/UpdateProductController";
 
+import { CreateClientController } from "./controller/client/CreateClientController";
+import { DeleteClientController } from "./controller/client/DeleteClientController";
+import { ListClientController } from "./controller/client/ListClientController";
+import { UpdateClientController } from "./controller/client/UpdateClientController";
+
+import { CreateSalesController} from "./controller/sales/CreateSalesController";
+import {UpdateSalesController} from "./controller/sales/UpdateSalesController";
+import { DeleteSalesController} from "./controller/sales/DeleteSalesController";
+import { ListSalesController } from "./controller/sales/ListSalesController";
+
+import { CreateCategoryController } from "./controller/category/CreateCategoryController";
+import { UpdateCategoryController } from "./controller/category/UpdateCategoryController";
+import { ListCategoryController } from "./controller/category/ListCategoryController";
+import { DeleteCategoryController } from "./controller/category/DeleteCategoryController";
+
+
 //estancias do user 
 const createUserController = new CreateUserController();
 const listUserController = new ListUsersController();
@@ -23,7 +39,23 @@ const listProductsController = new ListProductsController();
 const deleteProductController = new DeleteProductController();
 const updateProductController = new UpdateProductController();
 
+//estancias do client
+const createClientController = new CreateClientController();
+const deleteClientController = new DeleteClientController();
+const listClientController = new ListClientController();
+const updateClientController = new UpdateClientController();
 
+//estancias do sales
+const createSalesController = new CreateSalesController();
+const updateSalesController = new UpdateSalesController();
+const deleteSalesController = new DeleteSalesController();
+const listSalesController = new ListSalesController();
+
+//estancias do category
+const createCategoryController = new CreateCategoryController();
+const updateCategoryController = new UpdateCategoryController();
+const listCategoryController = new ListCategoryController();
+const deleteCategoryController = new DeleteCategoryController();
 
 export const router = Router();
 router.post("/users", createUserController.handle); // Rota para criar um usuário
@@ -35,3 +67,18 @@ router.post("/products", createProductController.handle); // Rota para criar um 
 router.get("/products", listProductsController.handle);
 router.delete("/products/:id", deleteProductController.handle);
 router.put("/products/:id", updateProductController.handle);
+
+router.post("/clients", createClientController.handle);
+router.get("/clients", listClientController.handle);
+router.delete("/clients/:id", deleteClientController.handle);
+router.put("/clients/:id", updateClientController.handle);
+
+router.post("/sales", createSalesController.handle);
+router.get("/sales", listSalesController.handle);
+router.delete("/sales/:id", deleteSalesController.handle);
+router.put("/sales/:id", updateSalesController.handle);
+
+router.post("/categories", createCategoryController.handle);
+router.get("/categories", listCategoryController.handle);
+router.delete("/categories/:id", deleteCategoryController.handle);
+router.put("/categories/:id", updateCategoryController.handle);
