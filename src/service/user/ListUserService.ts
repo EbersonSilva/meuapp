@@ -1,8 +1,21 @@
 import { IUserRequest } from "../../interface/IUserRequest";    
 
 export class ListUserService {
-    async execute(): Promise<IUserRequest[]> {
-        // Lógica para listar usuários
-        return [];
+    async execute() {
+        const users = [
+            {
+                name: "Fabio",
+                email: "fabio@gmail.com",
+                admin: false,
+                password: "1234"
+            },
+            {
+                name: "Marcio",
+                email: "marcio@gmail.com",
+                admin: false,
+                password: "1234"
+            }
+        ];
+        return users;
     }
 }
