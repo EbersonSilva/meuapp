@@ -25,6 +25,7 @@ import { CreateCategoryController } from "./controller/category/CreateCategoryCo
 import { UpdateCategoryController } from "./controller/category/UpdateCategoryController";
 import { ListCategoryController } from "./controller/category/ListCategoryController";
 import { DeleteCategoryController } from "./controller/category/DeleteCategoryController";
+import { AuthenticatedUserController } from "./controller/autenticated/AuthenticatedUserController";
 
 
 //estancias do user 
@@ -32,6 +33,7 @@ const createUserController = new CreateUserController();
 const listUserController = new ListUsersController();
 const deleteUserController = new DeleteUserController();
 const updateUserController = new UpdateUserController();
+const authenticatedUserController = new AuthenticatedUserController();
 
 //estancias do product
 const createProductController = new CreateProductController();
@@ -58,6 +60,9 @@ const listCategoryController = new ListCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
 
 export const router = Router();
+
+router.post("/login", authenticatedUserController.handle); // Rota para autenticação de usuário
+
 router.post("/users", createUserController.handle); // Rota para criar um usuário
 router.get("/users", listUserController.handle)
 router.delete("/users/:id", deleteUserController.handle)
