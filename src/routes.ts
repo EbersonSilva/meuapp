@@ -28,32 +28,32 @@ import { DeleteCategoryController } from "./controller/category/DeleteCategoryCo
 import { AuthenticatedUserController } from "./controller/autenticated/AuthenticatedUserController";
 
 
-//estancias do user 
+//instancias do user
 const createUserController = new CreateUserController();
 const listUserController = new ListUsersController();
 const deleteUserController = new DeleteUserController();
 const updateUserController = new UpdateUserController();
 const authenticatedUserController = new AuthenticatedUserController();
 
-//estancias do product
+//instancias do product
 const createProductController = new CreateProductController();
 const listProductsController = new ListProductsController();
 const deleteProductController = new DeleteProductController();
 const updateProductController = new UpdateProductController();
 
-//estancias do client
+//instancias do client
 const createClientController = new CreateClientController();
 const deleteClientController = new DeleteClientController();
 const listClientController = new ListClientController();
 const updateClientController = new UpdateClientController();
 
-//estancias do sales
+//instancias do sales
 const createSalesController = new CreateSalesController();
 const updateSalesController = new UpdateSalesController();
 const deleteSalesController = new DeleteSalesController();
 const listSalesController = new ListSalesController();
 
-//estancias do category
+//instancias do category
 const createCategoryController = new CreateCategoryController();
 const updateCategoryController = new UpdateCategoryController();
 const listCategoryController = new ListCategoryController();

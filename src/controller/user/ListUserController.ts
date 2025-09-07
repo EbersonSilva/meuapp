@@ -5,7 +5,7 @@ export class ListUsersController {
             {
                 name: "Eberson",
                 email: "eberson@gmail.com",
-                admin: false,
+                admin: true,
                 password: "12345"
             },
             {
