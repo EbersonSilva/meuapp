@@ -1,27 +1,12 @@
+import { getCustomRepository } from "typeorm";
+import { ClientRepositories } from "../../repository/ClientRepositories";
 export class ListClientService{
     async execute(){
-        const clients = [
-            {
-                name: "Eberson Silva",
-                cpf: "123.456.789-00",
-                email: "eberson@example.com",
-                adress: "Rua A, 123",
-                zipcode: "12345-678",
-                number: "123",
-                city: "São Paulo",
-                state: "SP" 
-            },
-            {
-                name: "Maria Oliveira",
-                cpf: "987.654.321-00",
-                email: "maria@example.com",
-                adress: "Rua B, 456",
-                zipcode: "87654-321",
-                number: "456",
-                city: "Rio de Janeiro",
-                state: "RJ"
-            }
-        ];
+        // Obtendo o repositório de clientes
+        const clientRepositories = getCustomRepository(ClientRepositories);
+        // Buscando todos os clientes no banco de dados
+        const clients = await clientRepositories.find();
+        // Retornando a lista de clientes
         return clients;
     }
 }

@@ -3,7 +3,7 @@ export interface IClientRequest{
     name: string,
     cpf: string,
     email: string,
-    adress: string,
+    address: string,
     zipcode: string,
     number: string,
     city: string,

@@ -26,6 +26,7 @@ import { UpdateCategoryController } from "./controller/category/UpdateCategoryCo
 import { ListCategoryController } from "./controller/category/ListCategoryController";
 import { DeleteCategoryController } from "./controller/category/DeleteCategoryController";
 import { AuthenticatedUserController } from "./controller/autenticated/AuthenticatedUserController";
+import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 
 
 //instancias do user
@@ -61,29 +62,30 @@ const deleteCategoryController = new DeleteCategoryController();
 
 export const router = Router();
 
-router.post("/login", authenticatedUserController.handle); // Rota para autenticação de usuário
+router.post("/login", authenticatedUserController.handle); // Rota pública para autenticação de usuário
+router.post("/users", createUserController.handle); // Rota pública para criar um usuário
 
-router.post("/users", createUserController.handle); // Rota para criar um usuário
-router.get("/users", listUserController.handle)
-router.delete("/users/:id", deleteUserController.handle)
-router.put("/users/:id", updateUserController.handle)
+// Rotas protegidas que exigem autenticação
+router.get("/users", ensureAuthenticated, listUserController.handle); // Rota para listar usuários
+router.delete("/users/:id", ensureAuthenticated, deleteUserController.handle); // Rota para deletar um usuário
+router.put("/users/:id", ensureAuthenticated, updateUserController.handle); // Rota para atualizar um usuário
 
-router.post("/products", createProductController.handle); // Rota para criar um produto
-router.get("/products", listProductsController.handle);
-router.delete("/products/:id", deleteProductController.handle);
-router.put("/products/:id", updateProductController.handle);
+router.post("/products", ensureAuthenticated, createProductController.handle); // Rota para criar um produto
+router.get("/products", ensureAuthenticated, listProductsController.handle);
+router.delete("/products/:id", ensureAuthenticated, deleteProductController.handle);
+router.put("/products/:id", ensureAuthenticated, updateProductController.handle);
 
-router.post("/clients", createClientController.handle);
-router.get("/clients", listClientController.handle);
-router.delete("/clients/:id", deleteClientController.handle);
-router.put("/clients/:id", updateClientController.handle);
+router.post("/clients", ensureAuthenticated, createClientController.handle);
+router.get("/clients", ensureAuthenticated, listClientController.handle);
+router.delete("/clients/:id", ensureAuthenticated, deleteClientController.handle);
+router.put("/clients/:id", ensureAuthenticated, updateClientController.handle);
 
-router.post("/sales", createSalesController.handle);
-router.get("/sales", listSalesController.handle);
-router.delete("/sales/:id", deleteSalesController.handle);
-router.put("/sales/:id", updateSalesController.handle);
+router.post("/sales", ensureAuthenticated, createSalesController.handle);
+router.get("/sales", ensureAuthenticated, listSalesController.handle);
+router.delete("/sales/:id", ensureAuthenticated, deleteSalesController.handle);
+router.put("/sales/:id", ensureAuthenticated, updateSalesController.handle);
 
-router.post("/categories", createCategoryController.handle);
-router.get("/categories", listCategoryController.handle);
-router.delete("/categories/:id", deleteCategoryController.handle);
-router.put("/categories/:id", updateCategoryController.handle);
+router.post("/categories", ensureAuthenticated, createCategoryController.handle);
+router.get("/categories", ensureAuthenticated, listCategoryController.handle);
+router.delete("/categories/:id", ensureAuthenticated, deleteCategoryController.handle);
+router.put("/categories/:id", ensureAuthenticated, updateCategoryController.handle);

@@ -1,29 +1,55 @@
-import { compare, hash } from "bcryptjs";
+import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-interface IAuthenticateRequest{
+import { UserRepositories } from '../../repository/UserRepositories';
+import { getCustomRepository } from "typeorm";
+
+interface IAuthenticateRequest {
     email: string;
     password: string;
 }
 
-export class AuthenticatedUserService{
+export class AuthenticatedUserService {
     async execute({ email, password }: IAuthenticateRequest) {
-        const passwordtemp = await hash( "1234", 8);
-        console.log(passwordtemp);
-        const passwordMatch = await compare(password, passwordtemp);
-        if (!passwordMatch) {
-            throw new Error("Email/Password incorrect");
+        // Instância do repositório de usuários
+        const userRepository = getCustomRepository(UserRepositories);
+        
+        // Buscar usuário pelo email
+        const user = await userRepository.findOne({ email });
+        
+        // Verificar se o usuário existe
+        if (!user) {
+            throw new Error("Email/senha incorretos");
         }
+        
+        // Verificar se a senha está correta
+        const passwordMatch = await compare(password, user.password);
+        if (!passwordMatch) {
+            throw new Error("Email/senha incorretos");
+        }
+        
+        // Gerar token JWT
         const token = sign(
             {
-                email: email,
+                email: user.email,
+                name: user.name,
+                admin: user.admin
             },
-            "123456",
+            "123456", // Idealmente, essa chave deve vir de variáveis de ambiente
             {
-                subject: "Admin",
-                expiresIn: "1d"
+                subject: user.id, // Usar o ID do usuário como subject para identificação
+                expiresIn: "1d"   // Token expira em 1 dia
             }
         );
-        return token;
+        
+        // Retornar token e informações básicas do usuário
+        return {
+            token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                admin: user.admin
+            }
+        };
     }
-
 }

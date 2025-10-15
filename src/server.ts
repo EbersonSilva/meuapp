@@ -1,7 +1,8 @@
 import express, {Request, Response, NextFunction, response} from "express";
 import "express-async-errors"
 import "reflect-metadata"
-import { router } from "./routes";
+import { router } from "./routes"
+import "./database"
 
 const app = express(); //instancia
 
@@ -9,13 +10,14 @@ app.use(express.json()); //fazer o express entender json
 
 app.use(router); 
 
+//Tratamento de erros
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 	if(err instanceof Error) {
-		return response.status(400).json({
+		return res.status(400).json({
 			error: err.message
 		})
 	}
-	return response.status(500).json({
+	return res.status(500).json({
 		status: "error",
 		message: "Internal Server Error"
 	})

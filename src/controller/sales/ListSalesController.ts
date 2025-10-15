@@ -1,13 +1,13 @@
 import { Request, Response } from "express";  
+import { ListSalesService } from "../../service/sales/ListSalesService";
+
 export class ListSalesController {
     async handle(request: Request, response: Response) {
-        const sales = [{
-            id: 1,
-            value: 100,
-            discount: 10,
-            productid: 1,
-            ClientId: 1
-        }]
-        return response.json({ message: "Lista de vendas" });
+        // Criar instância do serviço
+        const listSalesService = new ListSalesService();
+        // Executar o serviço
+        const sales = await listSalesService.execute();
+        // Retornar a resposta
+        return response.json({ sales });
     }
 }

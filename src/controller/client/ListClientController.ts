@@ -1,18 +1,13 @@
 import { Response, Request } from "express";
+import { ListClientService } from "../../service/client/ListClientService";
 
 export class ListClientController{
     async handle(request: Request, response: Response){
-        const client = {
-            id: 1,
-            name: "Marcos Silva",
-            email: "marcossilva@gmail.com",
-            cpf: "123.456.789-00",
-            adress: "Rua pará",
-            zipcode: "12345-678",
-            number: 123,
-            city: "Suzano",
-            state: "SP"
-        }
-        response.json({message: "Lista de clientes", client});
+        // Criar instância do serviço
+        const listClientService = new ListClientService();
+        // Executar o serviço
+        const clients = await listClientService.execute();
+        // Retornar a resposta
+        return response.json({message: "Lista de clientes", clients});
     }
 }

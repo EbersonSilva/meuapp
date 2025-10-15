@@ -1,21 +1,13 @@
-import { IUserRequest } from "../../interface/IUserRequest";    
+import { getCustomRepository } from "typeorm";
+import { UserRepositories } from "../../repository/UserRepositories";
 
 export class ListUserService {
     async execute() {
-        const users = [
-            {
-                name: "Fabio",
-                email: "fabio@gmail.com",
-                admin: false,
-                password: "1234"
-            },
-            {
-                name: "Marcio",
-                email: "marcio@gmail.com",
-                admin: false,
-                password: "1234"
-            }
-        ];
+        // Obtendo o repositório de usuários    
+        const userRepositories = getCustomRepository(UserRepositories);
+        // Buscando todos os usuários no banco de dados
+        const users = await userRepositories.find();   
+        // Retornando a lista de usuários  
         return users;
     }
 }

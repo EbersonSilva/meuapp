@@ -1,15 +1,28 @@
 import { Request, Response } from "express";
+import { CreateSalesService } from "../../service/sales/CreateSalesService";
 
 export class CreateSalesController{
     async handle(request: Request, response: Response){
-        const{id, value, discount, productid, Clientid} = request.body;
-        const sales = {
-            id: id,
-            value: value,
-            discount: discount,
-            productid: productid,
-            Clientid: Clientid
+        const{id, value, discount, productid, clientid} = request.body;
+        // Verificando campos obrigatórios
+        if(!value || !productid || !clientid){
+            return response.status(400).json({error: "Campos value, productid e clientid são obrigatórios"});
         }
-        response.json({message: "Registro incluido com sucesso"});
+        // Criando instância do serviço
+        const createSalesService = new CreateSalesService();
+        // Executando o serviço
+        const sales = await createSalesService.execute({
+            id,
+            value,
+            discount,
+            productid,
+            clientid
+        });
+
+        return response.json({message: "Venda criada com sucesso", sales});
     }
 }
+
+
+
+    

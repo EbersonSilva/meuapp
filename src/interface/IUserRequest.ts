@@ -1,8 +1,7 @@
 export interface IUserRequest{
     id?: string
-    name: string,
-    email: string,
+    name?: string,
+    email?: string,
     admin?: boolean,
-    password: string
-
+    password?: string
 }

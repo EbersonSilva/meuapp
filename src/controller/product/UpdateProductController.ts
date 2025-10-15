@@ -1,23 +1,30 @@
 import { Request, Response } from "express";
+import { UpdateProductService } from "../../service/product/UpdateProductService";
 
 export class UpdateProductController{
     async handle(request: Request, response: Response){
-        const {id, name, ean, price, description, categoryId} = request.body
-        console.log(name)
-        console.log(ean)
-        console.log(price)
-        console.log(description)
-        console.log(categoryId)
+        const {id} = request.params;
+        // Verificando campos obrigatórios
+        const { name, ean, price, description, categoryId} = request.body;
+            if (!id) {
+                return response.status(400).json({ error: "ID do produto é obrigatório" });
+            }
+        
 
-        const product = {
-            id: id,
-            name: name,
-            ean: ean,
-            price: price,
-            description: description,
-            categoryId: categoryId
-            
-        }
-        return response.json(product)
+        //executando o serviço
+        const updateData: any = { id };
+        // Atualizando apenas os campos fornecidos
+        if (name !== undefined) updateData.name = name;
+        if (ean !== undefined) updateData.ean = ean;
+        if (price !== undefined) updateData.price = price;
+        if (description !== undefined) updateData.description = description;
+        if (categoryId !== undefined) updateData.categoryId = categoryId;   
+
+        // Criando instância do serviço
+        const updateProductService = new UpdateProductService();
+        // Executando o serviço
+        const resp = await updateProductService.execute(updateData);
+        // Retornando a resposta
+        return response.json({message: "Produto atualizado com sucesso", product: resp});
     }
 }
